@@ -1,25 +1,30 @@
 class Solution {
+
     public int[] pivotArray(int[] nums, int pivot) {
-        int n = nums.length;
-        int[] result = new int[n];
-        List<Integer> smallerThanPivot = new ArrayList<>();
-        List<Integer> equalToPivot = new ArrayList<>();
-        List<Integer> greaterThanPivot = new ArrayList<>();
-        //getting index of all the smallest element from given pivot
-        for(int i=0;i<n;i++){
-            if(nums[i] < pivot){
-                smallerThanPivot.add(i);
-            } else if(nums[i] == pivot){
-                equalToPivot.add(i);
-            } else{
-                greaterThanPivot.add(i);
+        int less = 0;
+        int equal = 0;
+        for (int num : nums) {
+            if (num < pivot) less++;
+            else if (num == pivot) equal++;
+        }
+
+        int[] ans = new int[nums.length];
+        int lessI = 0;
+        int equalI = less;
+        int greaterI = less + equal;
+        for (int i = 0; i < nums.length; i++) {
+            int num = nums[i];
+            if (num < pivot) {
+                ans[lessI] = num;
+                lessI++;
+            } else if (num > pivot) {
+                ans[greaterI] = num;
+                greaterI++;
+            } else {
+                ans[equalI] = num;
+                equalI++;
             }
         }
-        smallerThanPivot.addAll(equalToPivot);
-        smallerThanPivot.addAll(greaterThanPivot);
-        for(int i=0; i<smallerThanPivot.size(); i++){
-            result[i] = nums[smallerThanPivot.get(i)];
-        }
-        return result;
+        return ans;
     }
 }
