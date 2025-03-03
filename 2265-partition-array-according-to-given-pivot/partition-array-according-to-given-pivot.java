@@ -15,15 +15,10 @@ class Solution {
                 greaterThanPivot.add(i);
             }
         }
-        int index = 0;
+        smallerThanPivot.addAll(equalToPivot);
+        smallerThanPivot.addAll(greaterThanPivot);
         for(int i=0; i<smallerThanPivot.size(); i++){
-            result[index++] = nums[smallerThanPivot.get(i)];
-        }
-        for(int i=0; i<equalToPivot.size(); i++){
-            result[index++] = nums[equalToPivot.get(i)];
-        }
-        for(int i=0; i<greaterThanPivot.size(); i++){
-            result[index++] = nums[greaterThanPivot.get(i)];
+            result[i] = nums[smallerThanPivot.get(i)];
         }
         return result;
     }
