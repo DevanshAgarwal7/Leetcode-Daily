@@ -5,7 +5,7 @@ class Solution {
         int right = 0;
         int count = 0;
         while(right < n){
-            if(substringHasRequiredCharacters(s.substring(left, right+1))){
+            if(right - left + 1 >= 3 && substringHasRequiredCharacters(s.substring(left, right+1))){
                 count += n-right;
                 ++left;
                 while(left < right && right - left + 1 >= 3 && substringHasRequiredCharacters(s.substring(left, right+1))){
