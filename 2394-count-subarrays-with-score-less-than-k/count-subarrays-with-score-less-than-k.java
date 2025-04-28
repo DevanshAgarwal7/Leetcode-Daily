@@ -8,19 +8,13 @@ class Solution {
         while(right < n){
             int subArrayLength = right - left + 1;
             sum += nums[right];
-            if(sum * subArrayLength < k){
-                count += subArrayLength;
-                ++right;
+            while(sum * subArrayLength >= k){
+                sum -= nums[left];
+                ++left;
+                subArrayLength = right - left + 1;
             }
-            else{
-                while(sum * subArrayLength >= k){
-                    sum -= nums[left];
-                    ++left;
-                    subArrayLength = right - left + 1;
-                }
-                count += subArrayLength;
-                ++right;
-            }
+            count += subArrayLength;
+            ++right;
         }
         return count;
     }
