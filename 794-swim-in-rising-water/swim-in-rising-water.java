@@ -5,9 +5,11 @@ class Solution {
         int n = grid.length;
         boolean[][] vis = new boolean[n][n];
         PriorityQueue<int[]> pq = new PriorityQueue<>((x, y) -> x[0] - y[0]);
+        Set<int[]> set = new HashSet<>();
 
         //start from (0,0)
         pq.add(new int[] {grid[0][0], 0, 0});
+        set.add(new int[] {0, 0});
 
         while(!pq.isEmpty()){
             int[] curr = pq.poll();
@@ -24,6 +26,10 @@ class Solution {
             for(int i=0;i<4;i++){
                 int neighbourRow = row + dx[i];
                 int neighbourCol = col + dy[i];
+
+                if(set.contains(new int[]{neighbourRow, neighbourCol})){
+                    continue;
+                }
 
                 if(neighbourRow >= 0 && neighbourRow < n && neighbourCol >= 0 && 
                 neighbourCol < n && !vis[neighbourRow][neighbourCol]){
