@@ -1,29 +1,25 @@
 class Solution {
 
     public int[] pivotArray(int[] nums, int pivot) {
-        int less = 0;
-        int equal = 0;
+        LinkedList<Integer> less = new LinkedList<>();
+        LinkedList<Integer> equal = new LinkedList<>();
+        LinkedList<Integer> greater = new LinkedList<>();
         for (int num : nums) {
-            if (num < pivot) less++;
-            else if (num == pivot) equal++;
-        }
-
-        int[] ans = new int[nums.length];
-        int lessI = 0;
-        int equalI = less;
-        int greaterI = less + equal;
-        for (int i = 0; i < nums.length; i++) {
-            int num = nums[i];
             if (num < pivot) {
-                ans[lessI] = num;
-                lessI++;
+                less.add(num);
             } else if (num > pivot) {
-                ans[greaterI] = num;
-                greaterI++;
+                greater.add(num);
             } else {
-                ans[equalI] = num;
-                equalI++;
+                equal.add(num);
             }
+        }
+        less.addAll(equal);
+        less.addAll(greater);
+
+        int i = 0;
+        int[] ans = new int[nums.length];
+        for (int num : less) {
+            ans[i++] = num;
         }
         return ans;
     }
