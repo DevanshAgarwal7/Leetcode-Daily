@@ -6,15 +6,13 @@ class Solution {
     public int countIslands(int[][] grid, int k) {
         m = grid.length;
         n = grid[0].length;
-
-        boolean[][] vis = new boolean[m][n];
         int count = 0;
 
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
-                if(grid[i][j] > 0 && !vis[i][j]){
+                if(grid[i][j] > 0){
                     long sum = 0;
-                    sum = dfs(i, j, grid, vis, sum);
+                    sum = dfs(i, j, grid, sum);
                     if(sum % k == 0){
                         count++;
                     }
@@ -23,19 +21,17 @@ class Solution {
         }
         return count;
     }
-    private long dfs(final int row, final int col, final int[][] grid, boolean[][] vis,
-    long sum){
-        if(row < 0 || row >= m || col < 0 || col >= n || grid[row][col] == 0 || 
-            vis[row][col]){
+    private long dfs(final int row, final int col, final int[][] grid, long sum){
+        if(row < 0 || row >= m || col < 0 || col >= n || grid[row][col] == 0){
             return sum;
         }
-        vis[row][col] = true;
         sum += grid[row][col];
+        grid[row][col] = 0;
 
         for(int i=0;i<4;i++){
             int dxRow = row + dx[i];
             int dyCol = col + dy[i];
-            sum = dfs(dxRow, dyCol, grid, vis, sum);
+            sum = dfs(dxRow, dyCol, grid, sum);
         }
         return sum;
     }
